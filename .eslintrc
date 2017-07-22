@@ -1,0 +1,19 @@
+{
+  "extends": "airbnb",
+  "env": {
+    "browser": true
+  },
+  "globals": {
+    "fetch": true
+  },
+  "rules": {
+    "quotes": ["warn", "single"],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/prop-types": "off",
+    "import/prefer-default-export": "off",
+    "comma-dangle": "off",
+    "arrow-parens": "off",
+    "dot-notation": "off",
+    "no-underscore-dangle": "off"
+  }
+}
