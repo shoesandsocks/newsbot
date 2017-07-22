@@ -2,11 +2,11 @@
   "name": "@shoesandsocks/newsbot",
   "version": "1.0.0",
   "description": "A slackbot that delivers the news",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
     "build": "backpack build",
     "dev": "backpack",
-    "start": "npm run build && node ./build/main.js",
+    "start": "node ./build/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
