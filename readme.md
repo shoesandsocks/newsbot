@@ -8,3 +8,5 @@ A slack-bot that delivers headlines via [newsapi.org](https://newsapi.org/).
     srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"
   />
 </a>
+
+![a gif of the slash-command in action](https://s3-us-west-2.amazonaws.com/s.cdpn.io/504344/newsbot.gif)
