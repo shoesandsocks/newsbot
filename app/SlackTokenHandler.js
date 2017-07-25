@@ -6,6 +6,7 @@ require('dotenv').config();
 
 // TODO: 
 // create a state-checker for extra security
+// https://github.com/sego90/temere/blob/master/app/controllers/slackTokenController.js
 
 function SlackTokenHandler() {
   this.storeToken = function storeToken(req, res) {
@@ -20,6 +21,13 @@ function SlackTokenHandler() {
       tokenPromise.then((token) => {
         if (token) {
           console.log('Team already installed app.');
+          token.access_token = data.access_token;
+          token.scope = data.scope;
+          token.user_id = data.user_id;
+          token.team_name = data.team_name;
+          token.team_id = data.team_id;
+          token.bot = data.bot;
+          token.save();
           res.redirect(`http://${data.team_name}.slack.com`);
         } else {
           const newToken = new Token();
