@@ -4,7 +4,8 @@ import bodyParser from 'body-parser';
 import session from 'express-session';
 import mongoose from 'mongoose';
 import routes from './routes';
-import bot from './bot';
+import { getSchedules } from './scheduler';
+import { startNews } from './news';
 /**
  * setup dotenv, express, express-session
  */
@@ -29,12 +30,20 @@ mongoose.connect(process.env.MONGO, { useMongoClient: true });
 /**
  * serve routes, static /public folder, and start server
  */
-// test
-app.post('/events', (req, res) => {
-  const { challenge } = req.body;
-  res.json({ challenge });
-});
-// end test
 app.use(routes);
 app.use(express.static(path.join(__dirname, '../public')));
 app.listen(port, () => console.log(`on ${port}`)); // eslint-disable-line
+
+/**
+ * auto-scheduler things
+ */
+getSchedules().then(allTeams => {
+  allTeams.forEach(oneTeam => {
+    oneTeam.forEach(uniqueSched => {
+      const { source, id, time, dm } = uniqueSched;
+      if (source && id && time && dm) {
+        startNews(source, id, time, dm, process.env.NEWS_KEY);
+      }
+    });
+  });
+});
