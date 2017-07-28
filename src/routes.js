@@ -59,7 +59,6 @@ router.post('/response', (req, res) => {
     return res.json({ text: 'setting source' });
   }
   if (callback_id === 'schedule_selection') {
-    console.log(JSON.parse(req.body.payload).actions[0].selected_options[0].value);
     const time = actions[0].selected_options[0].value;
     setTime(user, team, time, response_url);
     return res.sendStatus(200);
@@ -78,9 +77,9 @@ router.post('/response', (req, res) => {
  *
  */
 router.post('/events', (req, res) => {
-  console.log('---------REQ.BODY.EVENT-----------');
-  console.log(req.body);
-  console.log('------------^-END-^---------------');
+  // console.log('---------REQ.BODY.EVENT-----------');
+  // console.log(req.body);
+  // console.log('------------^-END-^---------------');
   const { token, api_app_id, challenge, team_id, event, type } = req.body;
   if (
     token !== process.env.SLACK_VERIFICATION_TOKEN ||

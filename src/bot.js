@@ -5,12 +5,11 @@ import Token from '../app/tokens';
 
 require('dotenv').config();
 
-const bot_user_token = process.env.BOT_USER_OAUTH_ACCESS_TOKEN;
-
 export default function bot(team_id, event) {
   const botTokenPromise = Token.findOne({ team_id }).exec();
   botTokenPromise
     .then(token => {
+      const bot_user_token = token.bot.bot_access_token;
       let text = '';
       let params = {};
       // already running a schedule?

@@ -40,9 +40,9 @@ app.listen(port, () => console.log(`on ${port}`)); // eslint-disable-line
 getSchedules().then(allTeams => {
   allTeams.forEach(oneTeam => {
     oneTeam.forEach(uniqueSched => {
-      const { source, id, time, dm } = uniqueSched;
-      if (source && id && time && dm) {
-        startNews(source, id, time, dm, process.env.NEWS_KEY);
+      const { source, id, time, dm, team } = uniqueSched;
+      if (source && id && time && dm && team) {
+        startNews(source, id, time, dm, process.env.NEWS_KEY, team);
       }
     });
   });

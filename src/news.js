@@ -4,7 +4,6 @@ import qs from 'qs';
 import cron from 'node-cron';
 import Token from '../app/tokens';
 
-const bot_user_token = process.env.BOT_USER_OAUTH_ACCESS_TOKEN;
 const task = {};
 
 const genericPost = (params, source, dm = '') =>
@@ -12,8 +11,7 @@ const genericPost = (params, source, dm = '') =>
     .post(`https://www.slack.com/api/chat.postMessage?${params}`, {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     })
-    .then(() =>
-      console.log(`posted news from ${source} to ${dm} at ${new Date()}`)
+    .then(() => console.log(`posted scheduled news from ${source} to ${dm} at ${new Date()}`)
     )
     .catch(e => console.log(`error posting response to slack: ${e}`));
 
@@ -155,12 +153,17 @@ export const getNews = (source, key, response_url) => {
       });
       axios
         .post(response_url, newsMessage)
-        .then(() => console.log(`posted news from ${source} at ${new Date()}`))
+        .then(() => console.log(`posted oneoff news from ${source} at ${new Date()}`))
         .catch(() => console.log('error posting response to slack'));
     })
     .catch(e => console.log(`error getting news from newsAPI: ${e}`));
 };
-export const startNews = (source, id, time, dm, key) => {
+export const startNews = (source, id, time, dm, key, team_id) => {
+  let bot_user_token = '';
+  Token.findOne({ team_id }, (err, token) => {
+    if (err) console.log(err);
+    bot_user_token = token.bot.bot_access_token;
+  });
   axios
     .get(`https://newsapi.org/v1/articles?source=${source}&apiKey=${key}`)
     .then(reply => {
@@ -200,7 +203,7 @@ export const startNews = (source, id, time, dm, key) => {
           genericPost(params, source, dm)
         );
       } else if (time === 'all_three') {
-        task[id] = cron.schedule('0 8,12,18 * * *', () =>
+        task[id] = cron.schedule('12,13,14,15,16,17 23 * * *', () =>
           genericPost(params, source, dm)
         );
       }
@@ -210,8 +213,10 @@ export const startNews = (source, id, time, dm, key) => {
 export const showTasks = (team_id, user_id, channel) =>
   Token.findOne({ team_id }, (err, token) => {
     let userSchedule = {};
+    let bot_user_token = '';
     if (!err) {
       userSchedule = token.schedules.filter(s => s.id === user_id)[0];
+      bot_user_token = token.bot.bot_access_token;
     }
     let text = 'You have no automatic news schedule set (or something bad happened).';
     if (userSchedule.source) {

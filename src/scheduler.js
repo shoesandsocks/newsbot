@@ -8,7 +8,7 @@ export const setSource = (user, team, channel_string, source, response_url) => {
   const tokenPromise = Token.findOne({ team_id: team.id }).exec();
   tokenPromise.then(token => {
     const schedules = token.schedules.filter(ns => ns.id !== user.id); // filter out old entry
-    const newSchedule = { source, id: user.id, time: '', dm: channel_string };
+    const newSchedule = { source, id: user.id, time: '', dm: channel_string, team: team.id };
     schedules.push(newSchedule);
     token.schedules = schedules;
     token.save();
@@ -39,7 +39,3 @@ export function getSchedules() {
     });
   });
 }
-
-export const startSending = (source, id, time, dm) => {
-  console.log(source, id, time, dm);
-};
