@@ -1,7 +1,6 @@
 import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
-import session from 'express-session';
 import mongoose from 'mongoose';
 import cron from 'node-cron';
 import routes from './routes';
@@ -16,16 +15,7 @@ const port = process.env.PORT;
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-  }),
-);
-/**
- * connect to dB @ mLab with mongoose
- */
+
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGO, { useMongoClient: true });
 /**
