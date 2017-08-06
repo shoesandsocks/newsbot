@@ -1,18 +1,17 @@
 /* eslint-disable no-nested-ternary, no-console */
 import axios from 'axios';
 import qs from 'qs';
-import cron from 'node-cron';
+// import cron from 'node-cron';
 import Token from '../app/tokens';
 
-const task = {};
+// const task = {};
 
 const genericPost = (params, source, dm = '') =>
   axios
     .post(`https://www.slack.com/api/chat.postMessage?${params}`, {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     })
-    .then(() => console.log(`posted scheduled news from ${source} to ${dm} at ${new Date()}`)
-    )
+    .then(() => console.log(`posted scheduled news from ${source} to ${dm} at ${new Date()}`))
     .catch(e => console.log(`error posting response to slack: ${e}`));
 
 export const getNewsSources = url =>
@@ -36,7 +35,7 @@ export const getNewsSources = url =>
     },
     reject => {
       reject({ news: 'source ' });
-    }
+    },
   );
 
 export const formatSourcesForSlack = (sources, context = '') => {
@@ -96,19 +95,19 @@ export const schedulePicker = () => {
           options: [
             {
               text: 'Mornings',
-              value: 'mornings',
+              value: 'morning',
             },
             {
-              text: 'Mid-day',
-              value: 'mid_day',
+              text: 'Midday',
+              value: 'midday',
             },
             {
               text: 'Evenings',
-              value: 'evenings',
+              value: 'evening',
             },
             {
               text: 'All three',
-              value: 'all_three',
+              value: 'thrice daily',
             },
           ],
         },
@@ -158,7 +157,7 @@ export const getNews = (source, key, response_url) => {
     })
     .catch(e => console.log(`error getting news from newsAPI: ${e}`));
 };
-export const startNews = (source, id, time, dm, key, team_id) => {
+export const sendNews = (source, dm, key, team_id) => {
   let bot_user_token = '';
   Token.findOne({ team_id }, (err, token) => {
     if (err) console.log(err);
@@ -172,9 +171,7 @@ export const startNews = (source, id, time, dm, key, team_id) => {
         atts.push({
           fallback: 'a news headline',
           text: `${a.description
-            ? a.description.length > 100
-              ? a.description.substr(0, 100)
-              : a.description
+            ? a.description.length > 100 ? a.description.substr(0, 100) : a.description
             : ''}`,
           title_link: a.url,
           title: a.title,
@@ -190,23 +187,7 @@ export const startNews = (source, id, time, dm, key, team_id) => {
         text: `The latest headlines from ${source}`,
         attachments: jsonAttachments,
       });
-      if (time === 'mornings') {
-        task[id] = cron.schedule('0 8 * * *', () =>
-          genericPost(params, source, dm)
-        );
-      } else if (time === 'mid-day') {
-        task[id] = cron.schedule('0 12 * * *', () =>
-          genericPost(params, source, dm)
-        );
-      } else if (time === 'evenings') {
-        task[id] = cron.schedule('0 18 * * *', () =>
-          genericPost(params, source, dm)
-        );
-      } else if (time === 'all_three') {
-        task[id] = cron.schedule('12,13,14,15,16,17 23 * * *', () =>
-          genericPost(params, source, dm)
-        );
-      }
+      genericPost(params, source, dm);
     })
     .catch(e => console.log(`error getting news from newsAPI: ${e}`));
 };
@@ -218,14 +199,16 @@ export const showTasks = (team_id, user_id, channel) =>
       userSchedule = token.schedules.filter(s => s.id === user_id)[0];
       bot_user_token = token.bot.bot_access_token;
     }
-    let text = 'You have no automatic news schedule set (or something bad happened).';
-    if (userSchedule.source) {
-      text = `You're getting ${userSchedule.source} headlines in the ${userSchedule.time}`;
+    let text =
+      'You have no automatic news schedule set (or something bad happened). Type `schedule` to start a new schedule or `help` for more....';
+    if (userSchedule && userSchedule.source) {
+      text = `You're getting ${userSchedule.time} headlines from ${userSchedule.source}. To cancel this news schedule, type \`cancel\`.`;
     }
+    text += ' To get the news now, use the slash-command `/news`.';
     const params = qs.stringify({ token: bot_user_token, text, channel });
     axios
       .post(`https://www.slack.com/api/chat.postMessage?${params}`, {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       })
       .then(() => console.log('task posted'))
       .catch(() => console.log('task posting error'));

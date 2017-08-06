@@ -26,7 +26,9 @@ export const setTime = (user, team, time, response_url) => {
     token.schedules = schedules;
     token.markModified('schedules'); // ! b/c empty array in schema
     token.save();
-    axios.post(response_url, { text: 'You\'re all set!' });
+    axios.post(response_url, {
+      text: `You're all set. Scheduled ${time} delivery of ${newSchedule.source} headlines.`,
+    });
   });
 };
 
