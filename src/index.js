@@ -83,3 +83,16 @@ const eveningTask = cron.schedule(
   },
   true,
 );
+const twoMinTask = cron.schedule(
+  '*/2 * * * *',
+  () => {
+    refreshSchedules().then(sked => {
+      sked.forEach(a => {
+        if (a.time === 'every two minutes') {
+          sendNews(a.source, a.dm, process.env.NEWS_KEY, a.team);
+        }
+      });
+    });
+  },
+  true,
+);

@@ -109,6 +109,10 @@ export const schedulePicker = () => {
               text: 'All three',
               value: 'thrice daily',
             },
+            {
+              text: 'Every 2 mins ( 🙏🏽  Brief tests! 👍🏽) ',
+              value: 'every two minutes',
+            },
           ],
         },
       ],
@@ -200,9 +204,12 @@ export const showTasks = (team_id, user_id, channel) =>
       bot_user_token = token.bot.bot_access_token;
     }
     let text =
-      'You have no automatic news schedule set (or something bad happened). Type `schedule` to start a new schedule or `help` for more....';
+      'You have no automatic news schedule set.\n' +
+      'Type `schedule` to start a new schedule or `help` for more....';
     if (userSchedule && userSchedule.source) {
-      text = `You're getting ${userSchedule.time} headlines from ${userSchedule.source}. To cancel this news schedule, type \`cancel\`.`;
+      text =
+        `You're getting ${userSchedule.time} headlines from ${userSchedule.source}. ` +
+        'To cancel this news schedule, type `cancel`. To change, type `change`.';
     }
     text += ' To get the news now, use the slash-command `/news`.';
     const params = qs.stringify({ token: bot_user_token, text, channel });

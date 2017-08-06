@@ -27,7 +27,9 @@ export const setTime = (user, team, time, response_url) => {
     token.markModified('schedules'); // ! b/c empty array in schema
     token.save();
     axios.post(response_url, {
-      text: `You're all set. Scheduled ${time} delivery of ${newSchedule.source} headlines.`,
+      text:
+        `You're all set. Scheduled ${time} delivery of ${newSchedule.source} headlines.\n` +
+        'Cancel anytime with `cancel`; change by typing `change`.',
     });
   });
 };
