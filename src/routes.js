@@ -22,6 +22,11 @@ router.get('/install', slackTokenHandler.storeToken);
  * send news
  */
 router.post('/news', (req, res) => {
+  const { token, team_id, channel_id, user_id, text, response_url } = req.body;
+  if (text === 'help') {
+    help(user_id, team_id, channel_id);
+    return res.sendStatus(200);
+  }
   if (!newsSources.length) {
     return res.json({ text: 'News is initializing. Try again.' });
   }
