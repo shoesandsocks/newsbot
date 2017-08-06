@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import axios from 'axios';
-// import qs from 'qs';
+import cron from 'node-cron';
 import Token from '../app/tokens';
-import { schedulePicker } from './news';
+import { schedulePicker, sendNews } from './news';
 
 export const setSource = (user, team, channel_string, source, response_url) => {
   const tokenPromise = Token.findOne({ team_id: team.id }).exec();
@@ -34,12 +34,83 @@ export const setTime = (user, team, time, response_url) => {
   });
 };
 
-export function getSchedules() {
-  return new Promise((resolve, reject) => {
+const getSchedules = () =>
+  new Promise((resolve, reject) => {
     Token.find({}, (err, tokens) => {
       if (err) reject('problemz.');
       const map = tokens.map(token => token.schedules);
       resolve(map);
     });
   });
-}
+
+/**
+ * auto-scheduler things
+ */
+let allSchedules = [];
+const refreshSchedules = () => {
+  allSchedules = [];
+  return new Promise((resolve, reject) => {
+    getSchedules().then(allTeams => {
+      allTeams.forEach(oneTeam => {
+        oneTeam.forEach(uniqueSched => {
+          allSchedules.push(uniqueSched);
+        });
+      });
+      resolve(allSchedules);
+      reject('hello');
+    });
+  });
+};
+
+export const morningTask = cron.schedule(
+  '0 8 * * *',
+  () => {
+    refreshSchedules().then(sked => {
+      sked.forEach(a => {
+        if (a.time === 'morning' || a.time === 'thrice daily') {
+          sendNews(a.source, a.dm, process.env.NEWS_KEY, a.team);
+        }
+      });
+    });
+  },
+  true,
+);
+export const midTask = cron.schedule(
+  '0 12 * * *',
+  () => {
+    refreshSchedules().then(sked => {
+      sked.forEach(a => {
+        if (a.time === 'midday' || a.time === 'thrice daily') {
+          sendNews(a.source, a.dm, process.env.NEWS_KEY, a.team);
+        }
+      });
+    });
+  },
+  true,
+);
+export const eveningTask = cron.schedule(
+  '0 20 * * *',
+  () => {
+    refreshSchedules().then(sked => {
+      sked.forEach(a => {
+        if (a.time === 'evening' || a.time === 'thrice daily') {
+          sendNews(a.source, a.dm, process.env.NEWS_KEY, a.team);
+        }
+      });
+    });
+  },
+  true,
+);
+export const twoMinTask = cron.schedule(
+  '*/2 * * * *',
+  () => {
+    refreshSchedules().then(sked => {
+      sked.forEach(a => {
+        if (a.time === 'every two minutes') {
+          sendNews(a.source, a.dm, process.env.NEWS_KEY, a.team);
+        }
+      });
+    });
+  },
+  true,
+);
