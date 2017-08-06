@@ -5,14 +5,25 @@ import SlackTokenHandler from '../app/SlackTokenHandler';
 import { nevermind } from './responses';
 import { getNewsSources, formatSourcesForSlack, getNews, showTasks } from './news';
 import { setSource, setTime } from './scheduler';
+import { newsArrayDefault } from './newsArrayDefault';
 
 // setup stuff
+require('dotenv').config();
+
 const slackTokenHandler = new SlackTokenHandler();
 const router = express.Router();
-let newsSources = {};
-getNewsSources('https://newsapi.org/v1/sources?language=en').then(response => {
-  newsSources = response;
-});
+let newsSources = newsArrayDefault;
+try {
+  getNewsSources('https://newsapi.org/v1/sources?language=en')
+    .then(response => {
+      newsSources = response;
+    })
+    .catch(err => {
+      throw new Error(err);
+    });
+} catch (error) {
+  throw new Error(error);
+}
 
 /**
  * install route
@@ -22,6 +33,7 @@ router.get('/install', slackTokenHandler.storeToken);
  * send news
  */
 router.post('/news', (req, res) => {
+  // console.log(req.body);
   const { token, team_id, channel_id, user_id, text, response_url } = req.body;
   if (text === 'help') {
     help(user_id, team_id, channel_id);
@@ -29,6 +41,11 @@ router.post('/news', (req, res) => {
   }
   if (!newsSources.length) {
     return res.json({ text: 'News is initializing. Try again.' });
+  }
+  if (text.length > 0 && newsSources.some(s => s.text.indexOf(text) > -1)) {
+    // console.log(text);
+    getNews(text, process.env.NEWS_KEY, response_url);
+    return res.sendStatus(200);
   }
   return res.json(formatSourcesForSlack(newsSources, 'slash'));
 });
@@ -107,33 +124,34 @@ router.post('/events', (req, res) => {
    * Begin actual keyword matching. Arrays and the .some() method used to trigger imported fns.
    *
    */
-  const helpWords = ['hello', 'help', 'hi', 'bot', 'newsbot'];
+  const helpWords = ['hello', 'help', 'hi', 'hey', 'bot', 'newsbot'];
   if (helpWords.some(t => event.text.indexOf(t) > -1)) {
-    console.log('saw -hello- -quit- -hi- or -bot-, -newsbot-');
+    console.log('saw -hello-');
     help(event.user, team_id, event.channel);
     return res.sendStatus(200);
   }
   const triggers = ['remind', 'news', 'get'];
   if (triggers.some(t => event.text.indexOf(t) > -1)) {
-    console.log('saw -remind- -news- or -get-');
+    console.log('saw -remind-');
     showTasks(team_id, event.user, event.channel);
     return res.sendStatus(200);
   }
   const startScheduling = ['schedule', 'setup', 'start'];
   if (startScheduling.some(t => event.text.indexOf(t) > -1)) {
-    console.log('saw -news- -schedule- -setup- or -start-');
+    console.log('saw -schedule-');
     start(team_id, event);
     return res.sendStatus(200);
   }
   const quitScheduling = ['cancel', 'quit', 'stop', 'end'];
   if (quitScheduling.some(t => event.text.indexOf(t) > -1)) {
-    console.log('saw -cancel- -quit- -stop- or -end-');
+    console.log('saw -cancel-');
+    // TODO: 'are you sure'
     quit(event.user, team_id, event.channel);
     return res.sendStatus(200);
   }
   const changeScheduling = ['change', 'revise', 'modify', 'alter'];
   if (changeScheduling.some(t => event.text.indexOf(t) > -1)) {
-    console.log('saw -change- -revise- -modify- or -alter-');
+    console.log('saw -change-');
     start(team_id, event, true); // 'changeFlag' at 3rd argv
     return res.sendStatus(200);
   }

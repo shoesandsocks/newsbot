@@ -23,7 +23,7 @@ export const getNewsSources = url =>
         .then(response => {
           response.data.sources.forEach(item => {
             newsSources.push({
-              text: item.name,
+              text: `${item.name} (${item.id})`,
               value: item.id,
             });
           });

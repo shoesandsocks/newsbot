@@ -1,0 +1,131 @@
+export const newsArrayDefault = [
+  { text: 'ABC News (AU) (abc-news-au)', value: 'abc-news-au' },
+  {
+    text: 'Al Jazeera English (al-jazeera-english)',
+    value: 'al-jazeera-english',
+  },
+  { text: 'Ars Technica (ars-technica)', value: 'ars-technica' },
+  {
+    text: 'Associated Press (associated-press)',
+    value: 'associated-press',
+  },
+  { text: 'BBC News (bbc-news)', value: 'bbc-news' },
+  { text: 'BBC Sport (bbc-sport)', value: 'bbc-sport' },
+  { text: 'Bloomberg (bloomberg)', value: 'bloomberg' },
+  {
+    text: 'Breitbart News (breitbart-news)',
+    value: 'breitbart-news',
+  },
+  {
+    text: 'Business Insider (business-insider)',
+    value: 'business-insider',
+  },
+  {
+    text: 'Business Insider (UK) (business-insider-uk)',
+    value: 'business-insider-uk',
+  },
+  { text: 'Buzzfeed (buzzfeed)', value: 'buzzfeed' },
+  { text: 'CNBC (cnbc)', value: 'cnbc' },
+  { text: 'CNN (cnn)', value: 'cnn' },
+  { text: 'Daily Mail (daily-mail)', value: 'daily-mail' },
+  { text: 'Engadget (engadget)', value: 'engadget' },
+  {
+    text: 'Entertainment Weekly (entertainment-weekly)',
+    value: 'entertainment-weekly',
+  },
+  { text: 'ESPN (espn)', value: 'espn' },
+  {
+    text: 'ESPN Cric Info (espn-cric-info)',
+    value: 'espn-cric-info',
+  },
+  {
+    text: 'Financial Times (financial-times)',
+    value: 'financial-times',
+  },
+  {
+    text: 'Football Italia (football-italia)',
+    value: 'football-italia',
+  },
+  { text: 'Fortune (fortune)', value: 'fortune' },
+  { text: 'FourFourTwo (four-four-two)', value: 'four-four-two' },
+  { text: 'Fox Sports (fox-sports)', value: 'fox-sports' },
+  { text: 'Google News (google-news)', value: 'google-news' },
+  { text: 'Hacker News (hacker-news)', value: 'hacker-news' },
+  { text: 'IGN (ign)', value: 'ign' },
+  { text: 'Independent (independent)', value: 'independent' },
+  { text: 'Mashable (mashable)', value: 'mashable' },
+  { text: 'Metro (metro)', value: 'metro' },
+  { text: 'Mirror (mirror)', value: 'mirror' },
+  { text: 'MTV News (mtv-news)', value: 'mtv-news' },
+  { text: 'MTV News (UK) (mtv-news-uk)', value: 'mtv-news-uk' },
+  {
+    text: 'National Geographic (national-geographic)',
+    value: 'national-geographic',
+  },
+  {
+    text: 'New Scientist (new-scientist)',
+    value: 'new-scientist',
+  },
+  { text: 'Newsweek (newsweek)', value: 'newsweek' },
+  {
+    text: 'New York Magazine (new-york-magazine)',
+    value: 'new-york-magazine',
+  },
+  { text: 'NFL News (nfl-news)', value: 'nfl-news' },
+  { text: 'Polygon (polygon)', value: 'polygon' },
+  { text: 'Recode (recode)', value: 'recode' },
+  { text: 'Reddit /r/all (reddit-r-all)', value: 'reddit-r-all' },
+  { text: 'Reuters (reuters)', value: 'reuters' },
+  { text: 'TalkSport (talksport)', value: 'talksport' },
+  { text: 'TechCrunch (techcrunch)', value: 'techcrunch' },
+  { text: 'TechRadar (techradar)', value: 'techradar' },
+  {
+    text: 'The Economist (the-economist)',
+    value: 'the-economist',
+  },
+  {
+    text: 'The Guardian (AU) (the-guardian-au)',
+    value: 'the-guardian-au',
+  },
+  {
+    text: 'The Guardian (UK) (the-guardian-uk)',
+    value: 'the-guardian-uk',
+  },
+  { text: 'The Hindu (the-hindu)', value: 'the-hindu' },
+  {
+    text: 'The Huffington Post (the-huffington-post)',
+    value: 'the-huffington-post',
+  },
+  {
+    text: 'The Lad Bible (the-lad-bible)',
+    value: 'the-lad-bible',
+  },
+  {
+    text: 'The New York Times (the-new-york-times)',
+    value: 'the-new-york-times',
+  },
+  { text: 'The Next Web (the-next-web)', value: 'the-next-web' },
+  {
+    text: 'The Sport Bible (the-sport-bible)',
+    value: 'the-sport-bible',
+  },
+  {
+    text: 'The Telegraph (the-telegraph)',
+    value: 'the-telegraph',
+  },
+  {
+    text: 'The Times of India (the-times-of-india)',
+    value: 'the-times-of-india',
+  },
+  { text: 'The Verge (the-verge)', value: 'the-verge' },
+  {
+    text: 'The Wall Street Journal (the-wall-street-journal)',
+    value: 'the-wall-street-journal',
+  },
+  {
+    text: 'The Washington Post (the-washington-post)',
+    value: 'the-washington-post',
+  },
+  { text: 'Time (time)', value: 'time' },
+  { text: 'USA Today (usa-today)', value: 'usa-today' },
+];
