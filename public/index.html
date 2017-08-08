@@ -7,73 +7,18 @@
   <meta name="slack-app-id" content="A5T5D4Z43">
   <link href="https://fonts.googleapis.com/css?family=Roboto|Lora" rel="stylesheet">
   <title>Newsbot.</title>
-  <style>
-    body {
-      padding-bottom: 10vh;
-      background: linear-gradient(45deg, #100AAE, #ADAAFA) fixed;
-      font-family: "Roboto", sans-serif;
-      color: #fff;
-    }
-
-    p {
-      font-family: "Lora", sans-serif;
-    }
-
-    h1,
-    h2,
-    p {
-      padding-left: 15%
-    }
-
-    h1 {
-      font-size: 3em;
-      padding-top: 12%;
-    }
-
-    h2 {
-      font-size: 2em;
-    }
-
-    p {
-      font-size: 1.5em;
-      padding-right: 15%;
-    }
-
-    #aWrap {
-      padding-left: 0;
-      padding-right: 0;
-      text-align: center;
-    }
-
-    .spacer {
-      height: 11vh;
-    }
-
-    a {
-      color: #aaa;
-    }
-
-    code {
-      border: 1px solid #eee;
-      padding-left: 7px;
-      padding-right: 7px;
-      padding-top: 1px;
-    }
-
-    .small {
-      font-size: 1.1em
-    }
-  </style>
+  <link rel="stylesheet" href="/styles.css">
 </head>
 
 <body>
   <h1>Need some news in your Slack?</h1>
   <p>This app has two core features:</p>
 
-  <p>It add the slash-command <code>/news</code> to your Slack. When a user enters that command, the app will offer a list of
-    possible news sources. Select one to receive the latest headlines.</p>
+  <p>It adds the slash-command <code>/news</code> to your Slack. When a user enters that command, the app will offer a list
+    of possible news sources. Select one to receive the latest headlines. (Once installed, check the <code>/news</code> tooltip
+    for a couple of additional shortcuts.)</p>
 
-  <p>It adds a bot to your team that can send selected headlines to you. Open a DM with @newsbot and type <code>help</code>    to get started. Or skip the help and type <code>schedule</code> to jump right in. Other helpful terms include <code>change</code>,
+  <p>The app also adds a bot to your team that can schedule headline-delivery. Open a DM with @newsbot and type <code>help</code>    to get started. Or skip the help and type <code>schedule</code> to jump right in. Other helpful terms include <code>change</code>,
     <code>cancel</code>, and <code>remind me</code>.
   </p>
 

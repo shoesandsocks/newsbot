@@ -1,0 +1,45 @@
+body {
+  padding-bottom: 10vh;
+  background: linear-gradient(45deg, #100aae, #adaafa) fixed;
+  font-family: "Roboto", sans-serif;
+  color: #fff;
+}
+h1,
+h2,
+p {
+  padding-left: 15%;
+  padding-right: 15%;
+  letter-spacing: .5px;
+}
+p {
+  font: 1.5em "Lora", serif;
+  line-height: 1.4em;
+  letter-spacing: 1px;
+}
+h1 {
+  font-size: 3em;
+  padding-top: 12%;
+}
+h2 {
+  font-size: 2em;
+}
+#aWrap {
+  padding-left: 0;
+  padding-right: 0;
+  text-align: center;
+}
+.spacer {
+  height: 4vh;
+}
+a {
+  color: #aaa;
+}
+code {
+  border: 1px solid #eee;
+  padding-left: 7px;
+  padding-right: 7px;
+  padding-top: 1px;
+}
+.small {
+  font-size: 1.1em;
+}
