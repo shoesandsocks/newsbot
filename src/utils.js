@@ -4,17 +4,19 @@ import qs from 'qs';
 import Token from '../app/tokens';
 
 const helpWords = ['hello', 'help', 'hi', 'hey', 'bot', 'newsbot'];
-const triggers = ['remind', 'news', 'get'];
+const statusWords = ['remind', 'news', 'get', 'status'];
 const startScheduling = ['schedule', 'setup', 'start'];
 const quitScheduling = ['cancel', 'quit', 'stop', 'end'];
 const changeScheduling = ['change', 'revise', 'modify', 'alter'];
+const danceWords = ['boogie', 'dance', 'break it down for me fellas'];
 
 export const actionObjects = [
   { array: helpWords, action: 'help' },
-  { array: triggers, action: 'show-tasks' },
+  { array: statusWords, action: 'show-tasks' },
   { array: startScheduling, action: 'start' },
   { array: quitScheduling, action: 'cancel' },
   { array: changeScheduling, action: 'change' },
+  { array: danceWords, action: 'dance' },
 ];
 
 const ynButtons = cbName =>
@@ -152,6 +154,11 @@ export const paramsGenerator = (action, schedule) => {
       return {
         text: 'Your schedule is deleted.',
         attachments: '',
+      };
+    case 'dance':
+      return {
+        text: 'it\'s electric. oogie woogie woogie.',
+        attachments: ''
       };
     default:
       return {

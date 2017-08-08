@@ -126,7 +126,7 @@ router.post('/events', (req, res) => {
       actionKeyword = o.action;
     }
   });
-  chatPostMessage(team_id, event.user, event.channel, actionKeyword);
+  chatPostMessage(team_id, event.user, event.channel, actionKeyword); // TODO: move this up one line?
   return res.sendStatus(200);
 });
 
