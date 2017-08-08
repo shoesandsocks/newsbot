@@ -1,8 +1,8 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console, no-param-reassign */
 import axios from 'axios';
 import cron from 'node-cron';
 import Token from '../app/tokens';
-import { schedulePicker, sendNews } from './news';
+import { schedulePicker, sendNews } from './utils';
 
 export const setSource = (user, team, channel_string, source, response_url) => {
   const tokenPromise = Token.findOne({ team_id: team.id }).exec();
