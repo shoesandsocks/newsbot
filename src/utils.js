@@ -160,6 +160,10 @@ export const paramsGenerator = (action, schedule) => {
         text: 'it\'s electric. oogie woogie woogie.',
         attachments: ''
       };
+    case 'silence':
+      return {
+        text: 'Try something else. `help` always works.'
+      };
     default:
       return {
         text: 'How did you get here?',

@@ -120,13 +120,14 @@ router.post('/events', (req, res) => {
     return res.sendStatus(200);
   }
   // Keyword matching. (see ./utils file's actions and actionObject)
-  let actionKeyword = '';
+  let actionKeyword = 'silence';
+  const inputLowered = event.text.toLowerCase();
   actionObjects.forEach(o => {
-    if (o.array.some(t => event.text.indexOf(t) > -1)) {
+    if (o.array.some(t => inputLowered.indexOf(t) > -1)) {
       actionKeyword = o.action;
     }
   });
-  chatPostMessage(team_id, event.user, event.channel, actionKeyword); // TODO: move this up one line?
+  chatPostMessage(team_id, event.user, event.channel, actionKeyword);
   return res.sendStatus(200);
 });
 
