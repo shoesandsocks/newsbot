@@ -33,10 +33,6 @@
     "express": "^4.15.3",
     "express-session": "^1.15.4",
     "fetch": "^1.1.0",
-    "mongoose": "^4.11.3",
-    "node-cron": "^1.2.0",
-    "node-fetch": "^1.7.1",
-    "qs": "^6.5.0",
     "slack": "^8.3.1"
   }
 }
