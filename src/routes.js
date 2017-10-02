@@ -22,9 +22,9 @@ router.post('/news', (req, res) => {
   if (text === 'help') {
     return res.json({
       text:
-        'Hello! This is a newsbot that can send selected headlines to you.' +
+        'Hello! This is a newsbot that can send selected headlines to you. ' +
         'Type the slash-command `/news` to get a menu of sources. If you know ' +
-        'the short-code for a news source type `/news [code]` and skip the' +
+        'the short-code for a news source type `/news [code]` and skip the ' +
         'menu of sources. (To see a list of these sources, type `/news sources`)\n\n',
     });
   }
