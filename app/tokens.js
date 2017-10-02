@@ -9,8 +9,6 @@ const Token = new Schema({
   user_id: String,
   team_name: String,
   team_id: String,
-  bot: Object,
-  schedules: Array,
 });
 
 export default mongoose.model('Token', Token);

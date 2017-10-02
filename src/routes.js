@@ -1,10 +1,12 @@
 /* eslint-disable no-console */
 import express from 'express';
+import SlackTokenHandler from '../app/SlackTokenHandler';
 import { newsArrayDefault } from './newsArrayDefault';
 import { formatSourcesForSlack, getNewsSources, getNews } from './utils';
 
 require('dotenv').config();
 
+const slackTokenHandler = new SlackTokenHandler();
 const router = express.Router();
 let newsSources = newsArrayDefault; // backup in case getNewsSources() fails on next line
 
@@ -13,6 +15,11 @@ getNewsSources('https://newsapi.org/v1/sources?language=en')
     newsSources = response;
   })
   .catch(error => console.log(error));
+
+/**
+ * INSTALL NEW TEAM
+ */
+router.get('/install', slackTokenHandler.storeToken);
 
 /**
  * SLASH COMMAND HANDLER... /news [help], /news [source], /news
