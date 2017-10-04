@@ -70,7 +70,7 @@ router.post('/response', (req, res) => {
   }
   if (callback_id === 'source_selection_slash') {
     const source = actions[0].selected_options[0].value;
-    return getNews(source, process.env.NEWS_KEY, response_url);
+    getNews(source, process.env.NEWS_KEY, response_url);
   }
   return res.sendStatus(200);
 });
