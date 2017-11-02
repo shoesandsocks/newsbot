@@ -22,7 +22,7 @@ getNewsSources('https://newsapi.org/v1/sources?language=en')
 router.get('/install', slackTokenHandler.storeToken);
 
 /**
- * SLASH COMMAND HANDLER... /news [help], /news [source], /news
+ * SLASH COMMAND HANDLER..
  */
 router.post('/news', (req, res) => {
   const { text, response_url } = req.body;
@@ -30,9 +30,9 @@ router.post('/news', (req, res) => {
     return res.json({
       text:
         'Hello! This is a newsbot that can send selected headlines to you. ' +
-        'Type the slash-command `/news` to get a menu of sources. If you know ' +
-        'the short-code for a news source type `/news [code]` and skip the ' +
-        'menu of sources. (To see a list of these sources, type `/news sources`)\n\n',
+        'Type the slash-command `/quicknews` to get a menu of sources. If you know ' +
+        'the short-code for a news source type `/quicknews [code]` and skip the ' +
+        'menu of sources. (To see a list of these sources, type `/quicknews sources`)\n\n',
     });
   }
   if (text === 'sources') {
